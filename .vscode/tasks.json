@@ -1,0 +1,49 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "编译当前 C++ 文件",
+            "type": "process",
+            "command": "C:\\msys64\\ucrt64\\bin\\g++.exe",
+            "args": [
+                "-std=c++17",
+                "-g",
+                "-Wall",
+                "-Wextra",
+                "-pedantic",
+                "${file}",
+                "-o",
+                "C:\\msys64\\tmp\\${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "env": {
+                    "PATH": "C:\\msys64\\ucrt64\\bin;${env:PATH}",
+                    "TEMP": "C:\\msys64\\tmp",
+                    "TMP": "C:\\msys64\\tmp"
+                }
+            },
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "运行当前 C++ 文件",
+            "type": "process",
+            "command": "C:\\msys64\\tmp\\${fileBasenameNoExtension}.exe",
+            "dependsOrder": "sequence",
+            "dependsOn": "编译当前 C++ 文件",
+            "options": {
+                "env": {
+                    "PATH": "C:\\msys64\\ucrt64\\bin;${env:PATH}"
+                }
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared"
+            }
+        }
+    ]
+}
